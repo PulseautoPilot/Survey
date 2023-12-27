@@ -42,48 +42,60 @@
 <!-- Section A: Employee Details -->
 <section id="sectionA">
     <h2>Employee Details</h2>
+    <p>Unique Code: <span id="uniqueCodeA"></span></p>
     <label for="employeeName">Name:</label>
     <input type="text" id="employeeName" required>
 
     <label for="employeeCode">Employee Code:</label>
     <input type="text" id="employeeCode" required>
 
-    <button onclick="submitEmployeeInfo()">Submit</button>
+    <button onclick="submitEmployeeInfo('A')">Submit</button>
 </section>
 
 <!-- Section B: Company Review -->
 <section id="sectionB" style="display: none;">
     <h2>Company Review</h2>
+    <p>Unique Code: <span id="uniqueCodeB"></span></p>
     <p>Welcome to the Company Review section! Please take a few minutes to share your thoughts about our company.</p>
     <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">Review the Company</a>
 
-    <button id="submitReviewBtn" onclick="submitReview()" style="display: none;">Submit</button>
+    <button id="submitReviewBtn" onclick="submitReview('B')" style="display: none;">Submit</button>
 </section>
 
 <!-- Section C: Social Sharing -->
 <section id="sectionC" style="display: none;">
     <h2>Social Sharing</h2>
+    <p>Unique Code: <span id="uniqueCodeC"></span></p>
     <p>Thank you for completing the Company Review! Have you liked and shared our page on social media?</p>
 
-    <button onclick="proceedToSectionD()">Yes</button>
-    <p>No: <a href="#" onclick="shareOnSocialMedia()">Share on Social Media</a></p>
+    <button onclick="shareOnSocialMedia('C')">Yes</button>
+    <p>No: <a href="#" onclick="openSocialMediaLinks()">Like and Share on Social Media</a></p>
 </section>
 
 <!-- Section D: Final Section -->
 <section id="sectionD" style="display: none;">
     <h2>Final Section</h2>
+    <p>Unique Code: <span id="uniqueCodeD"></span></p>
     <p>This is the final section.</p>
 </section>
 
 <script>
+    // Function to generate a unique code
+    function generateUniqueCode() {
+        return Math.random().toString(36).substr(2, 9);
+    }
+
     // Function to submit employee information
-    function submitEmployeeInfo() {
+    function submitEmployeeInfo(section) {
+        const uniqueCode = generateUniqueCode();
+        document.getElementById(`uniqueCode${section}`).innerText = uniqueCode;
+
         const employeeName = document.getElementById('employeeName').value;
         const employeeCode = document.getElementById('employeeCode').value;
 
         // Move to Section B
-        document.getElementById('sectionA').style.display = 'none';
-        document.getElementById('sectionB').style.display = 'block';
+        document.getElementById(`section${section}`).style.display = 'none';
+        document.getElementById(`section${String.fromCharCode(section.charCodeAt(0) + 1)}`).style.display = 'block';
 
         // Start the timer for the submit button in Section B
         setTimeout(() => {
@@ -92,24 +104,31 @@
     }
 
     // Function to submit company review
-    function submitReview() {
+    function submitReview(section) {
         // Move to Section C
-        document.getElementById('sectionB').style.display = 'none';
-        document.getElementById('sectionC').style.display = 'block';
-    }
-
-    // Function to proceed to Section D
-    function proceedToSectionD() {
-        // Move to Section D
-        document.getElementById('sectionC').style.display = 'none';
-        document.getElementById('sectionD').style.display = 'block';
+        document.getElementById(`section${section}`).style.display = 'none';
+        document.getElementById(`section${String.fromCharCode(section.charCodeAt(0) + 1)}`).style.display = 'block';
     }
 
     // Function to simulate sharing on social media
-    function shareOnSocialMedia() {
+    function shareOnSocialMedia(section) {
         // Assume the user has shared the page on social media
         alert('Thank you for sharing on social media!');
-        proceedToSectionD(); // Move to the next section
+        proceedToSectionD(section); // Move to the next section
+    }
+
+    // Function to open social media links
+    function openSocialMediaLinks() {
+        // Implement your logic to open social media links
+        alert('Opening social media links...');
+        // You can replace the alert with actual links to your social media pages.
+    }
+
+    // Function to proceed to Section D
+    function proceedToSectionD(section) {
+        // Move to Section D
+        document.getElementById(`section${section}`).style.display = 'none';
+        document.getElementById('sectionD').style.display = 'block';
     }
 </script>
 
