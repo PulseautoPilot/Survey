@@ -41,13 +41,19 @@
         input {
             padding: 10px;
             margin-bottom: 10px;
-            width: 100%;
+            width: calc(100% - 20px);
             box-sizing: border-box;
         }
 
         #uniqueCode {
             color: #f26722;
             font-weight: bold;
+            font-size: 18px;
+        }
+
+        #timer {
+            font-size: 16px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -129,16 +135,26 @@
         }
 
         function startSectionTimer(sectionId, seconds) {
-            // Hide the button and start the timer
-            document.getElementById(sectionId).querySelector('button').style.display = 'none';
-            timer = setTimeout(() => {
-                document.getElementById(sectionId).querySelector('button').style.display = 'block';
-            }, seconds * 1000);
+            var button = document.getElementById(sectionId).querySelector('button');
+            var timerElement = document.getElementById('timer');
+
+            // Display timer and start countdown
+            timerElement.innerText = `Next button will appear in ${seconds} seconds`;
+            timer = setInterval(function () {
+                seconds--;
+                timerElement.innerText = `Next button will appear in ${seconds} seconds`;
+
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    button.style.display = 'block';
+                    timerElement.innerText = '';
+                }
+            }, 1000);
         }
 
         function resetForm() {
             // Reset the form and clear the timer
-            clearTimeout(timer);
+            clearInterval(timer);
             document.getElementById('sectionA').style.display = 'block';
             document.getElementById('sectionB').style.display = 'none';
             document.getElementById('sectionC').style.display = 'none';
@@ -147,6 +163,7 @@
             document.getElementById('employeeCode').value = '';
             document.getElementById('likedShared').value = 'yes'; // Reset dropdown
             document.getElementById('uniqueCode').innerText = '';
+            document.getElementById('timer').innerText = '';
         }
     </script>
 </body>
