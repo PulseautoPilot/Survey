@@ -80,18 +80,20 @@
 </section>
 
 <script>
-    // Function to generate a unique code
+   <script>
     function generateUniqueCode() {
         return Math.random().toString(36).substr(2, 9);
     }
 
-    // Function to submit employee information
     function submitEmployeeInfo(section) {
         const uniqueCode = generateUniqueCode();
         document.getElementById(`uniqueCode${section}`).innerText = uniqueCode;
 
         const employeeName = document.getElementById('employeeName').value;
         const employeeCode = document.getElementById('employeeCode').value;
+
+        // Save data to GitHub Gist
+        saveToGitHubGist(uniqueCode, employeeName, employeeCode);
 
         // Move to Section B
         document.getElementById(`section${section}`).style.display = 'none';
@@ -103,32 +105,27 @@
         }, 120000); // 2 minutes (120,000 milliseconds) timer
     }
 
-    // Function to submit company review
-    function submitReview(section) {
-        // Move to Section C
-        document.getElementById(`section${section}`).style.display = 'none';
-        document.getElementById(`section${String.fromCharCode(section.charCodeAt(0) + 1)}`).style.display = 'block';
-    }
+    function saveToGitHubGist(uniqueCode, employeeName, employeeCode) {
+        const gistData = {
+            description: 'Employee Information',
+            public: true,
+            files: {
+                [`${uniqueCode}.json`]: {
+                    content: JSON.stringify({ uniqueCode, employeeName, employeeCode }, null, 2)
+                }
+            }
+        };
 
-    // Function to simulate sharing on social media
-    function shareOnSocialMedia(section) {
-        // Assume the user has shared the page on social media
-        alert('Thank you for sharing on social media!');
-        proceedToSectionD(section); // Move to the next section
-    }
-
-    // Function to open social media links
-    function openSocialMediaLinks() {
-        // Implement your logic to open social media links
-        alert('Opening social media links...');
-        // You can replace the alert with actual links to your social media pages.
-    }
-
-    // Function to proceed to Section D
-    function proceedToSectionD(section) {
-        // Move to Section D
-        document.getElementById(`section${section}`).style.display = 'none';
-        document.getElementById('sectionD').style.display = 'block';
+        fetch('https://api.github.com/gists', {
+            method: 'POST',
+            body: JSON.stringify(gistData),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => console.log('Data saved to GitHub Gist:', data))
+        .catch(error => console.error('Error saving data to GitHub Gist:', error));
     }
 </script>
 
