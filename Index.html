@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Web Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Section A: Name & Employee Code -->
+<section id="sectionA">
+  <h2>Section A: Name & Employee Code</h2>
+  <label for="name">Name:</label>
+  <input type="text" id="name" required><br>
+  <label for="employeeCode">Employee Code:</label>
+  <input type="text" id="employeeCode" required><br>
+  <button onclick="verifyUser()">Verify</button>
+</section>
+
+<!-- Section B: Company Review -->
+<section id="sectionB" class="hidden">
+  <h2>Section B: Company Review</h2>
+  <p>Complete the review: <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">Company Review</a></p>
+  <button onclick="moveToSectionC()">Next</button>
+</section>
+
+<!-- Section C: Like & Share -->
+<section id="sectionC" class="hidden">
+  <h2>Section C: Like & Share</h2>
+  <p>Have you liked and shared the page?</p>
+  <label for="likeShareYes">Yes</label>
+  <input type="radio" id="likeShareYes" name="likeShare" value="yes">
+  <label for="likeShareNo">No</label>
+  <input type="radio" id="likeShareNo" name="likeShare" value="no"><br>
+  <button onclick="moveToSectionD()">Next</button>
+</section>
+
+<!-- Section D: Unique Code -->
+<section id="sectionD" class="hidden">
+  <h2>Section D: Unique Code</h2>
+  <p>Your unique code is: <span id="uniqueCode"></span></p>
+</section>
+
+<script>
+  function verifyUser() {
+    // Implement user verification logic (server-side)
+    // For simplicity, assuming verification is successful
+    moveToSectionB();
+  }
+
+  function moveToSectionB() {
+    document.getElementById("sectionA").classList.add("hidden");
+    document.getElementById("sectionB").classList.remove("hidden");
+  }
+
+  function moveToSectionC() {
+    document.getElementById("sectionB").classList.add("hidden");
+    document.getElementById("sectionC").classList.remove("hidden");
+  }
+
+  function moveToSectionD() {
+    // Implement logic to check if the user liked and shared the page
+    // If yes, generate and display a unique code (server-side)
+    // For simplicity, assuming the user liked and shared
+    const uniqueCode = generateUniqueCode();
+    document.getElementById("uniqueCode").innerText = uniqueCode;
+    document.getElementById("sectionC").classList.add("hidden");
+    document.getElementById("sectionD").classList.remove("hidden");
+  }
+
+  function generateUniqueCode() {
+    // Implement logic to generate a unique code (server-side)
+    // For simplicity, generating a random code here
+    return Math.random().toString(36).substring(7);
+  }
+</script>
+
+</body>
+</html>
