@@ -7,11 +7,12 @@
     <title>Interactive Web Page</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             max-width: 600px;
             margin: 50px auto;
             padding: 20px;
             background-color: #f4f4f4;
+            color: #333;
         }
 
         section {
@@ -20,10 +21,11 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
+            display: none;
         }
 
         button {
-            background-color: #4caf50;
+            background-color: #f26722;
             color: #fff;
             padding: 10px;
             border: none;
@@ -32,7 +34,7 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #e4571e;
         }
 
         select,
@@ -41,6 +43,11 @@
             margin-bottom: 10px;
             width: 100%;
             box-sizing: border-box;
+        }
+
+        #uniqueCode {
+            color: #f26722;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -75,9 +82,12 @@
         <h2>Section D - Unique Code</h2>
         <p>Thank you for completing the process!</p>
         <p>Your Unique Code: <span id="uniqueCode"></span></p>
+        <button onclick="resetForm()">Start Over</button>
     </section>
 
     <script>
+        let timer;
+
         function moveToSectionB() {
             var name = document.getElementById('name').value;
             var employeeCode = document.getElementById('employeeCode').value;
@@ -86,6 +96,7 @@
             if (name && employeeCode) {
                 document.getElementById('sectionA').style.display = 'none';
                 document.getElementById('sectionB').style.display = 'block';
+                startSectionTimer('sectionB', 120); // 2-minute timer for Section B
             } else {
                 alert('Please enter your Name and Employee Code.');
             }
@@ -95,6 +106,7 @@
             // Assuming completion of the company review
             document.getElementById('sectionB').style.display = 'none';
             document.getElementById('sectionC').style.display = 'block';
+            startSectionTimer('sectionC', 120); // 2-minute timer for Section C
         }
 
         function moveToSectionD() {
@@ -116,38 +128,25 @@
             document.getElementById('uniqueCode').innerText = uniqueCode;
         }
 
-        function saveUserData() {
-            var name = document.getElementById('name').value;
-            var employeeCode = document.getElementById('employeeCode').value;
-            var uniqueCode = document.getElementById('uniqueCode').innerText;
+        function startSectionTimer(sectionId, seconds) {
+            // Hide the button and start the timer
+            document.getElementById(sectionId).querySelector('button').style.display = 'none';
+            timer = setTimeout(() => {
+                document.getElementById(sectionId).querySelector('button').style.display = 'block';
+            }, seconds * 1000);
+        }
 
-            // Assuming you have a GitHub repository where you want to store the data
-            // Replace 'USERNAME', 'REPO_NAME', and 'FILENAME' with your GitHub username, repository name, and filename
-            var githubUrl = 'https://api.github.com/repos/Pulseautopilot/Survey/contents/Text.json';
-
-            // Data to be stored
-            var userData = {
-                name: name,
-                employeeCode: employeeCode,
-                uniqueCode: uniqueCode
-            };
-
-            // Send a POST request to GitHub API to create or update the file
-            fetch(githubUrl, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer YOUR_GITHUB_TOKEN',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: 'Add user data',
-                    content: btoa(JSON.stringify(userData)),
-                    sha: null
-                })
-            })
-            .then(response => response.json())
-            .then(data => console.log('User data saved:', data))
-            .catch(error => console.error('Error saving user data:', error));
+        function resetForm() {
+            // Reset the form and clear the timer
+            clearTimeout(timer);
+            document.getElementById('sectionA').style.display = 'block';
+            document.getElementById('sectionB').style.display = 'none';
+            document.getElementById('sectionC').style.display = 'none';
+            document.getElementById('sectionD').style.display = 'none';
+            document.getElementById('name').value = '';
+            document.getElementById('employeeCode').value = '';
+            document.getElementById('likedShared').value = 'yes'; // Reset dropdown
+            document.getElementById('uniqueCode').innerText = '';
         }
     </script>
 </body>
