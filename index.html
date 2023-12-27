@@ -11,17 +11,21 @@
             max-width: 600px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #fff;
             color: #333;
         }
 
         section {
-            background-color: #fff;
+            background-color: #f8f8f8;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
             display: none;
+        }
+
+        h2 {
+            color: #f26722;
         }
 
         button {
@@ -55,10 +59,25 @@
             font-size: 16px;
             margin-bottom: 10px;
         }
+
+        /* Additional styling for visual appeal */
+        .container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 
 <body>
+    <div class="container">
+        <img src="your-logo.png" alt="Logo">
+    </div>
+
     <section id="sectionA">
         <h2>Section A - Name & Employee Code</h2>
         <label for="name">Name:</label>
@@ -92,8 +111,6 @@
     </section>
 
     <script>
-        let timer;
-
         function moveToSectionB() {
             var name = document.getElementById('name').value;
             var employeeCode = document.getElementById('employeeCode').value;
@@ -102,7 +119,6 @@
             if (name && employeeCode) {
                 document.getElementById('sectionA').style.display = 'none';
                 document.getElementById('sectionB').style.display = 'block';
-                startSectionTimer('sectionB', 120); // 2-minute timer for Section B
             } else {
                 alert('Please enter your Name and Employee Code.');
             }
@@ -112,7 +128,6 @@
             // Assuming completion of the company review
             document.getElementById('sectionB').style.display = 'none';
             document.getElementById('sectionC').style.display = 'block';
-            startSectionTimer('sectionC', 120); // 2-minute timer for Section C
         }
 
         function moveToSectionD() {
@@ -121,7 +136,6 @@
                 document.getElementById('sectionC').style.display = 'none';
                 document.getElementById('sectionD').style.display = 'block';
                 generateUniqueCode();
-                saveUserData();
             } else {
                 alert('Please like and share the page to proceed to Section D.');
             }
@@ -134,27 +148,7 @@
             document.getElementById('uniqueCode').innerText = uniqueCode;
         }
 
-        function startSectionTimer(sectionId, seconds) {
-            var button = document.getElementById(sectionId).querySelector('button');
-            var timerElement = document.getElementById('timer');
-
-            // Display timer and start countdown
-            timerElement.innerText = `Next button will appear in ${seconds} seconds`;
-            timer = setInterval(function () {
-                seconds--;
-                timerElement.innerText = `Next button will appear in ${seconds} seconds`;
-
-                if (seconds <= 0) {
-                    clearInterval(timer);
-                    button.style.display = 'block';
-                    timerElement.innerText = '';
-                }
-            }, 1000);
-        }
-
         function resetForm() {
-            // Reset the form and clear the timer
-            clearInterval(timer);
             document.getElementById('sectionA').style.display = 'block';
             document.getElementById('sectionB').style.display = 'none';
             document.getElementById('sectionC').style.display = 'none';
@@ -163,7 +157,6 @@
             document.getElementById('employeeCode').value = '';
             document.getElementById('likedShared').value = 'yes'; // Reset dropdown
             document.getElementById('uniqueCode').innerText = '';
-            document.getElementById('timer').innerText = '';
         }
     </script>
 </body>
