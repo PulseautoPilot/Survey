@@ -1,81 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Web Page</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Web Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        #sectionB, #sectionC, #sectionD {
+            display: none;
+        }
+    </style>
 </head>
 <body>
+    <section id="sectionA">
+        <h2>Section A - Name & Employee Code</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br>
+        <label for="employeeCode">Employee Code:</label>
+        <input type="text" id="employeeCode" required><br>
+        <button onclick="moveToSectionB()">Next</button>
+    </section>
 
-<!-- Section A: Name & Employee Code -->
-<section id="sectionA">
-  <h2>Section A: Name & Employee Code</h2>
-  <label for="name">Name:</label>
-  <input type="text" id="name" required><br>
-  <label for="employeeCode">Employee Code:</label>
-  <input type="text" id="employeeCode" required><br>
-  <button onclick="verifyUser()">Verify</button>
-</section>
+    <section id="sectionB">
+        <h2>Section B - Company Review</h2>
+        <p>Complete the <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">company review</a> to proceed.</p>
+        <button onclick="moveToSectionC()">Review Completed</button>
+    </section>
 
-<!-- Section B: Company Review -->
-<section id="sectionB" class="hidden">
-  <h2>Section B: Company Review</h2>
-  <p>Complete the review: <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">Company Review</a></p>
-  <button onclick="moveToSectionC()">Next</button>
-</section>
+    <section id="sectionC">
+        <h2>Section C - Liked & Shared?</h2>
+        <label for="likedShared">Have you liked & shared the page?</label>
+        <select id="likedShared" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br>
+        <button onclick="moveToSectionD()">Next</button>
+    </section>
 
-<!-- Section C: Like & Share -->
-<section id="sectionC" class="hidden">
-  <h2>Section C: Like & Share</h2>
-  <p>Have you liked and shared the page?</p>
-  <label for="likeShareYes">Yes</label>
-  <input type="radio" id="likeShareYes" name="likeShare" value="yes">
-  <label for="likeShareNo">No</label>
-  <input type="radio" id="likeShareNo" name="likeShare" value="no"><br>
-  <button onclick="moveToSectionD()">Next</button>
-</section>
+    <section id="sectionD">
+        <h2>Section D - Unique Code</h2>
+        <p>Unique Code: <span id="uniqueCode"></span></p>
+    </section>
 
-<!-- Section D: Unique Code -->
-<section id="sectionD" class="hidden">
-  <h2>Section D: Unique Code</h2>
-  <p>Your unique code is: <span id="uniqueCode"></span></p>
-</section>
+    <script>
+        function moveToSectionB() {
+            var name = document.getElementById('name').value;
+            var employeeCode = document.getElementById('employeeCode').value;
 
-<script>
-    function validateSectionA() {
-        // Add logic to validate Name and Employee Code
-        // For simplicity, assuming the validation is successful
-        document.getElementById('sectionB').style.display = 'block';
-    }
-
-    function enableSectionC() {
-        document.getElementById('sectionC').style.display = 'block';
-    }
-
-    function validateSectionC() {
-        var likedSharedValue = document.getElementById('likedShared').value;
-        if (likedSharedValue.toLowerCase() === 'yes') {
-            document.getElementById('sectionD').style.display = 'block';
-            generateUniqueCode();
-        } else {
-            alert('Please like and share the page to proceed to Section D.');
+            // Check if both fields are filled
+            if (name && employeeCode) {
+                document.getElementById('sectionA').style.display = 'none';
+                document.getElementById('sectionB').style.display = 'block';
+            } else {
+                alert('Please enter your Name and Employee Code.');
+            }
         }
-    }
 
-    function generateUniqueCode() {
-        // Add logic to generate a unique code for the user
-        // For simplicity, generating a random code here
-        var uniqueCode = Math.random().toString(36).substr(2, 8);
-        document.getElementById('uniqueCode').innerText = uniqueCode;
-    }
-</script>
+        function moveToSectionC() {
+            // Assuming completion of the company review
+            document.getElementById('sectionB').style.display = 'none';
+            document.getElementById('sectionC').style.display = 'block';
+        }
+
+        function moveToSectionD() {
+            var likedSharedValue = document.getElementById('likedShared').value;
+            if (likedSharedValue.toLowerCase() === 'yes') {
+                document.getElementById('sectionC').style.display = 'none';
+                document.getElementById('sectionD').style.display = 'block';
+                generateUniqueCode();
+            } else {
+                alert('Please like and share the page to proceed to Section D.');
+            }
+        }
+
+        function generateUniqueCode() {
+            // Add logic to generate a unique code for the user
+            // For simplicity, generating a random code here
+            var uniqueCode = Math.random().toString(36).substr(2, 8);
+            document.getElementById('uniqueCode').innerText = uniqueCode;
+        }
+    </script>
 </body>
 </html>
