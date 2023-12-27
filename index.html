@@ -1,163 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Web Page</title>
+    <title>Employee Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #f0f0f0;
+            color: #333;
         }
 
         section {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
             padding: 20px;
-            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, button {
+            margin-bottom: 10px;
         }
 
         button {
-            background-color: #4caf50;
-            color: #fff;
             padding: 10px;
+            background-color: #007bff;
+            color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #45a049;
-        }
-
-        select,
-        input {
-            padding: 10px;
-            margin-bottom: 10px;
-            width: 100%;
-            box-sizing: border-box;
+            background-color: #0056b3;
         }
     </style>
 </head>
-
-
 <body>
-    <div class="container">
-        <img src="Logo.png" alt="Logo">
-    </div>
 
-    <section id="sectionA">
-        <h2>Section A - Name & Employee Code</h2>
-        <label for="name">Name:</label>
-        <input type="text" id="name" required><br>
-        <label for="employeeCode">Employee Code:</label>
-        <input type="text" id="employeeCode" required><br>
-        <button onclick="moveToSectionB()">Next</button>
-    </section>
+<!-- Section A: Employee Details -->
+<section id="sectionA">
+    <h2>Employee Details</h2>
+    <label for="employeeName">Name:</label>
+    <input type="text" id="employeeName" required>
 
-    <section id="sectionB">
-        <h2>Section B - Company Review</h2>
-        <p>Complete the <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">company review</a> to proceed.</p>
-        <button onclick="moveToSectionC()">Review Completed</button>
-        <div id="timer"></div>
-    </section>
+    <label for="employeeCode">Employee Code:</label>
+    <input type="text" id="employeeCode" required>
 
-    <section id="sectionC">
-        <h2>Section C - Liked & Shared?</h2>
-        <label for="likedShared">Have you liked & shared the page?</label>
-        <select id="likedShared" required>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select><br>
-        <button onclick="moveToSectionD()">Next</button>
-    </section>
+    <button onclick="submitEmployeeInfo()">Submit</button>
+</section>
 
-    <section id="sectionD">
-        <h2>Section D - Unique Code</h2>
-        <p>Thank you for completing the process!</p>
-        <p>Your Unique Code: <span id="uniqueCode"></span></p>
-        <button onclick="resetForm()">Start Over</button>
-    </section>
+<!-- Section B: Company Review -->
+<section id="sectionB" style="display: none;">
+    <h2>Company Review</h2>
+    <p>Welcome to the Company Review section! Please take a few minutes to share your thoughts about our company.</p>
+    <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">Review the Company</a>
 
-    <script>
-        let timer;
+    <button id="submitReviewBtn" onclick="submitReview()" style="display: none;">Submit</button>
+</section>
 
-        function moveToSectionB() {
-            var name = document.getElementById('name').value;
-            var employeeCode = document.getElementById('employeeCode').value;
+<!-- Section C: Social Sharing -->
+<section id="sectionC" style="display: none;">
+    <h2>Social Sharing</h2>
+    <p>Thank you for completing the Company Review! Have you liked and shared our page on social media?</p>
 
-            // Check if both fields are filled
-            if (name && employeeCode) {
-                document.getElementById('sectionA').style.display = 'none';
-                document.getElementById('sectionB').style.display = 'block';
-                startSectionTimer('sectionB', 120); // 2-minute timer for Section B
-            } else {
-                alert('Please enter your Name and Employee Code.');
-            }
-        }
+    <button onclick="proceedToSectionD()">Yes</button>
+    <p>No: <a href="#" onclick="shareOnSocialMedia()">Share on Social Media</a></p>
+</section>
 
-        function startSectionTimer(sectionId, seconds) {
-            var button = document.getElementById(sectionId).querySelector('button');
-            var timerElement = document.getElementById('timer');
+<!-- Section D: Final Section -->
+<section id="sectionD" style="display: none;">
+    <h2>Final Section</h2>
+    <p>This is the final section.</p>
+</section>
 
-            // Display timer and start countdown
-            timerElement.innerText = `Next button will appear in ${seconds} seconds`;
-            timer = setInterval(function () {
-                seconds--;
-                timerElement.innerText = `Next button will appear in ${seconds} seconds`;
+<script>
+    // Function to submit employee information
+    function submitEmployeeInfo() {
+        const employeeName = document.getElementById('employeeName').value;
+        const employeeCode = document.getElementById('employeeCode').value;
 
-                if (seconds <= 0) {
-                    clearInterval(timer);
-                    button.style.display = 'block';
-                    timerElement.innerText = '';
-                }
-            }, 1000);
-        }
+        // Move to Section B
+        document.getElementById('sectionA').style.display = 'none';
+        document.getElementById('sectionB').style.display = 'block';
 
-        function moveToSectionC() {
-            // Assuming completion of the company review
-            clearInterval(timer); // Clear timer when moving to the next section
-            document.getElementById('sectionB').style.display = 'none';
-            document.getElementById('sectionC').style.display = 'block';
-        }
+        // Start the timer for the submit button in Section B
+        setTimeout(() => {
+            document.getElementById('submitReviewBtn').style.display = 'block';
+        }, 120000); // 2 minutes (120,000 milliseconds) timer
+    }
 
-        function moveToSectionD() {
-            var likedSharedValue = document.getElementById('likedShared').value;
-            if (likedSharedValue.toLowerCase() === 'yes') {
-                document.getElementById('sectionC').style.display = 'none';
-                document.getElementById('sectionD').style.display = 'block';
-                generateUniqueCode();
-            } else {
-                alert('Please like and share the page to proceed to Section D.');
-            }
-        }
+    // Function to submit company review
+    function submitReview() {
+        // Move to Section C
+        document.getElementById('sectionB').style.display = 'none';
+        document.getElementById('sectionC').style.display = 'block';
+    }
 
-        function generateUniqueCode() {
-            // Add logic to generate a unique code for the user
-            // For simplicity, generating a random code here
-            var uniqueCode = Math.random().toString(36).substr(2, 8);
-            document.getElementById('uniqueCode').innerText = uniqueCode;
-        }
+    // Function to proceed to Section D
+    function proceedToSectionD() {
+        // Move to Section D
+        document.getElementById('sectionC').style.display = 'none';
+        document.getElementById('sectionD').style.display = 'block';
+    }
 
-        function resetForm() {
-            // Reset the form and clear the timer
-            clearInterval(timer);
-            document.getElementById('sectionA').style.display = 'block';
-            document.getElementById('sectionB').style.display = 'none';
-            document.getElementById('sectionC').style.display = 'none';
-            document.getElementById('sectionD').style.display = 'none';
-            document.getElementById('name').value = '';
-            document.getElementById('employeeCode').value = '';
-            document.getElementById('likedShared').value = 'yes'; // Reset dropdown
-            document.getElementById('uniqueCode').innerText = '';
-            document.getElementById('timer').innerText = '';
-        }
-    </script>
+    // Function to simulate sharing on social media
+    function shareOnSocialMedia() {
+        // Assume the user has shared the page on social media
+        alert('Thank you for sharing on social media!');
+        proceedToSectionD(); // Move to the next section
+    }
+</script>
+
 </body>
-
 </html>
