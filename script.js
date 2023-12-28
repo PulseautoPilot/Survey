@@ -1,41 +1,31 @@
-// Function to generate a unique code
-function generateUniqueCode() {
-    // Implement your logic to generate a unique code
-    return Math.floor(Math.random() * 1000000);
-}
+document.addEventListener('DOMContentLoaded', function () {
+    const submitBtnA = document.getElementById('submitBtnA');
+    const submitBtnB = document.getElementById('submitBtnB');
+    const sessionCodeSpan = document.getElementById('sessionCode');
 
-// Function to submit employee details
-function submitEmployeeDetails() {
-    const employeeName = document.getElementById('employeeName').value;
-    const employeeCode = document.getElementById('employeeCode').value;
-    const uniqueCode = generateUniqueCode();
+    // Function to generate a unique session code
+    function generateSessionCode() {
+        return Math.random().toString(36).substring(2, 10);
+    }
 
-    // Store data in Google Sheets (Simulated)
-    // You can replace this with your logic to save data in Google Sheets
-    console.log("Employee Name:", employeeName);
-    console.log("Employee Code:", employeeCode);
-    console.log("Unique Code:", uniqueCode);
+    // Event listener for Section A submit button
+    submitBtnA.addEventListener('click', function () {
+        document.getElementById('companyReview').classList.add('hidden');
+        document.getElementById('socialSharing').classList.remove('hidden');
 
-    // Hide Section A and show Section B
-    document.getElementById('employeeDetails').classList.add('hidden');
-    document.getElementById('companyReview').classList.remove('hidden');
+        // Start timer for Section B
+        setTimeout(function () {
+            submitBtnB.disabled = false;
+        }, 60000); // 1 minute delay
 
-    // Start the 2-minute timer for Section B
-    setTimeout(() => {
-        proceedToSocialSharing();
-    }, 120000); // 2 minutes in milliseconds
-}
+        // Display session code
+        const sessionCode = generateSessionCode();
+        sessionCodeSpan.textContent = sessionCode;
+    });
 
-// Function to proceed to Social Sharing section
-function proceedToSocialSharing() {
-    // Hide Section B and show Section C
-    document.getElementById('companyReview').classList.add('hidden');
-    document.getElementById('socialSharing').classList.remove('hidden');
-}
-
-// Function to show completion message
-function showCompletionMessage() {
-    // Hide Section C and show Section D
-    document.getElementById('socialSharing').classList.add('hidden');
-    document.getElementById('completion').classList.remove('hidden');
-}
+    // Event listener for Section B submit button
+    submitBtnB.addEventListener('click', function () {
+        document.getElementById('socialSharing').classList.add('hidden');
+        document.getElementById('completion').classList.remove('hidden');
+    });
+});
