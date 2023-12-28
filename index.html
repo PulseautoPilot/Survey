@@ -49,11 +49,6 @@
             border-radius: 5px;
         }
 
-        #logo {
-            max-width: 100px; /* Adjust the max-width as needed */
-            height: auto; /* Maintain aspect ratio */
-            margin-right: 20px;
-        }
 
         @media (max-width: 768px) {
             .container {
@@ -61,9 +56,6 @@
                 margin-top: 20px;
             }
             
-            #logo {
-                display: none;
-            }
         }
     </style>
 </head>
@@ -92,11 +84,7 @@
                     <button class="btn btn-primary" onclick="copySessionCode()">Copy Session ID</button>
                 </section>
             </div>
-            <img id="logo" src="*" alt="Company Logo"> <!-- Replace with the actual path to your logo -->
-        </div>
-    </div>
-
-
+           
   <script>
       window.onbeforeunload = function() {
             // Close any tabs or perform additional actions as needed
