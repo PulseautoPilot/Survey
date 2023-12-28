@@ -90,6 +90,21 @@
             // Close any tabs or perform additional actions as needed
             // This event will be triggered when the user goes back or closes the tab
         };
+     function copySessionCode() {
+        var sessionCode = document.getElementById("sessionCode").innerText;
+        var textarea = document.createElement("textarea");
+        textarea.value = sessionCode;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("Session ID copied to clipboard!");
+        
+        // Close the tab
+        window.close();
+    }
+
+      
       // Section 1 Timer
     setTimeout(function() {
       document.getElementById("section1SubmitBtn").style.display = "block";
