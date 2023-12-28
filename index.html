@@ -12,7 +12,7 @@
             padding: 0;
             box-sizing: border-box;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             min-height: 100vh;
         }
@@ -49,10 +49,19 @@
             border-radius: 5px;
         }
 
+        #logo {
+            max-width: 100px; /* Adjust the max-width as needed */
+            margin-right: 20px; /* Adjust the margin as needed */
+        }
+
         @media (max-width: 768px) {
             .container {
                 width: 100%;
                 margin-top: 20px;
+            }
+            
+            #logo {
+                display: none; /* Hide the logo on smaller screens if needed */
             }
         }
     </style>
@@ -82,8 +91,10 @@
                     <button class="btn btn-primary" onclick="copySessionCode()">Copy Session ID</button>
                 </section>
             </div>
+            <img id="logo" src="Logo.png" alt="Company Logo"> <!-- Replace with the actual path to your logo -->
         </div>
     </div>
+
 
   <script>
     // Section 1 Timer
