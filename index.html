@@ -90,7 +90,7 @@
             // Close any tabs or perform additional actions as needed
             // This event will be triggered when the user goes back or closes the tab
         };
-     function copySessionCode() {
+      function copySessionCode() {
         var sessionCode = document.getElementById("sessionCode").innerText;
         var textarea = document.createElement("textarea");
         textarea.value = sessionCode;
@@ -98,17 +98,23 @@
         textarea.select();
         document.execCommand("copy");
         document.body.removeChild(textarea);
-        alert("Session ID copied to clipboard!");
         
-        // Close the tab
-        window.close();
-    }
+        // Inform the user that the session ID is copied
+        alert("Session ID copied to clipboard! You can now close this tab by clicking the button below.");
 
-      
+        // Display a button for the user to click to close the tab
+        var closeTabButton = document.createElement("button");
+        closeTabButton.innerHTML = "Close Tab";
+        closeTabButton.onclick = function() {
+            // Close the tab when the button is clicked
+            window.close();
+        };
+        document.body.appendChild(closeTabButton);
+    }     
       // Section 1 Timer
     setTimeout(function() {
       document.getElementById("section1SubmitBtn").style.display = "block";
-    }, 30000);
+    }, 15000);
 
     // Section 1 Submit Button
     document.getElementById("section1SubmitBtn").addEventListener("click", function() {
@@ -116,7 +122,7 @@
       document.getElementById("section2").style.display = "block";
       setTimeout(function() {
         document.getElementById("section2SubmitBtn").style.display = "block";
-      }, 30000);
+      }, 15000);
     });
 
     // Section 2 Submit Button
