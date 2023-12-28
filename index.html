@@ -97,7 +97,11 @@
 
 
   <script>
-    // Section 1 Timer
+      window.onbeforeunload = function() {
+            // Close any tabs or perform additional actions as needed
+            // This event will be triggered when the user goes back or closes the tab
+        };
+      // Section 1 Timer
     setTimeout(function() {
       document.getElementById("section1SubmitBtn").style.display = "block";
     }, 30000);
