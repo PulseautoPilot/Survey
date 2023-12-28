@@ -1,44 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Your Web Page</title>
+  <title>Employee Details</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 </head>
 <body>
+  <div class="container">
+    <section id="sectionA">
+      <h2>Employee Details</h2>
+      <form>
+        <div class="mb-3">
+          <label for="uniqueCode" class="form-label">Unique Code:</label>
+          <input type="text" class="form-control" id="uniqueCode" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" class="form-control" id="name">
+        </div>
+        <div class="mb-3">
+          <label for="employeeCode" class="form-label">Employee Code:</label>
+          <input type="text" class="form-control" id="employeeCode">
+        </div>
+        <button type="button" class="btn btn-primary" id="submitEmployee">Submit</button>
+      </form>
+    </section>
 
-<!-- Section A: Employee Details -->
-<section id="employeeDetails">
-    <label for="employeeName">Name:</label>
-    <input type="text" id="employeeName">
+    <section id="sectionB" class="d-none">
+      <h2>Company Review</h2>
+      <p>Welcome to the Company Review section! Please take a few minutes to share your thoughts about our company.</p>
+      <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank" class="btn btn-primary">Company Review Link</a>
+      <button type="button" class="btn btn-primary mt-3" id="submitReview">Submit</button>
+    </section>
 
-    <label for="employeeCode">Employee Code:</label>
-    <input type="text" id="employeeCode">
+    <section id="sectionC" class="d-none">
+      <h2>Social Sharing</h2>
+      <p>Thank you for completing the Company Review!</p>
+      <p>Have you liked and shared our page on social media?</p>
+      <button type="button" class="btn btn-primary" id="yesButton">Yes</button>
+      <p class="mt-3">No? Please like and share our page on social media:</p>
+      <ul>
+        <li><a href="#" target="_blank">Facebook</a></li>
+        <li><a href="#" target="_blank">Twitter</a></li>
+        <li><a href="#" target="_blank">Instagram</a></li>
+      </ul>
+    </section>
 
-    <button onclick="submitEmployeeDetails()">Submit</button>
-</section>
+    <section id="sectionD" class="d-none">
+      <h2>Completion</h2>
+      <p>Thank you for your valuable feedback!</p>
+    </section>
+  </div>
 
-<!-- Section B: Company Review -->
-<section id="companyReview" class="hidden">
-    <p>Welcome to the Company Review section! Please take a few minutes to share your thoughts about our company.</p>
-    <a href="https://ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">Company Review Link</a>
-    <button onclick="proceedToSocialSharing()">Submit</button>
-</section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+  <script>
+    // Generate unique code
+    function generateUniqueCode() {
+      // Generate a random 6-digit number
+      const uniqueCode = Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('uniqueCode').value = uniqueCode;
+    }
 
-<!-- Section C: Social Sharing -->
-<section id="socialSharing" class="hidden">
-    <p>Thank you for completing the Company Review!</p>
-    <p>Have you liked and shared our page on social media?</p>
-    <button onclick="showCompletionMessage()">Yes</button>
-    <p>No Links: <!-- Add links to like and share the page on social media --></p>
-</section>
+    // Submit employee details
+    document.getElementById('submitEmployee').addEventListener('click', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const employeeCode = document.getElementById('employeeCode').value;
+      const uniqueCode = document.getElementById('uniqueCode').value;
 
-<!-- Section D: Completion -->
-<section id="completion" class="hidden">
-    <p>Thank you for your valuable feedback!</p>
-</section>
+      // Save employee information in Google Sheet
+      // Code to save data in Google Sheet goes here
 
-<script src="script.js"></script>
+      // Hide Section A and show Section B
+      document.getElementById('sectionA').classList.add('d-none');
+      document.getElementById('sectionB').classList.remove('d-none');
+
+      // Start timer for Section B
+      setTimeout(function() {
+        document.getElementById('submitReview').removeAttribute('disabled');
+      }, 120000); // 2 minutes (120,000 milliseconds)
+    });
+
+    // Submit company review
+    document.getElementById('submitReview').addEventListener('click', function() {
+      // Hide Section B and show Section C
+      document.getElementById('sectionB').classList.add('d-none');
+      document.getElementById('sectionC').classList.remove('d-none');
+    });
+
+    // Proceed to Section D
+    document.getElementById('yesButton').addEventListener('click', function() {
+      // Hide Section C and show Section D
+      document.getElementById('sectionC').classList.add('d-none');
+      document.getElementById('sectionD').classList.remove('d-none');
+    });
+
+    // Generate unique code on page load
+    generateUniqueCode();
+  </script>
 </body>
 </html>
