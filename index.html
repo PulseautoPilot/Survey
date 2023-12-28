@@ -1,45 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Company Review Page</title>
+    <title>Company Review</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-
-<!-- Section A: Company Review -->
-<section id="companyReview">
-    <div class="container">
-        <h2>Welcome to the Company Review section!</h2>
+    <div id="section1">
+        <h1>Welcome to the Company Review section!</h1>
         <p>Please take a few minutes to share your thoughts about our company.</p>
-        <a href="https://ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">Company Review Link</a>
-        <button id="submitBtnA">Proceed to Section B</button>
+        <a href="http://ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown">Company Review Link</a>
+        <button id="submit1" style="display: none;">Submit</button>
     </div>
-</section>
-
-<!-- Section B: Social Sharing -->
-<section id="socialSharing" class="hidden">
-    <div class="container">
-        <h2>Thank you for completing the Company Review!</h2>
+    <div id="section2" style="display: none;">
+        <h1>Thank you for completing the Company Review!</h1>
         <p>Have you liked and shared our page on social media?</p>
-        <div>
-            <a href="#" id="likeLink" target="_blank">Like</a>
-            <a href="#" id="shareLink" target="_blank">Share</a>
-        </div>
-        <button id="submitBtnB">Proceed to Section C</button>
+        <!-- Add social sharing links here -->
+        <button id="submit2" style="display: none;">Submit</button>
     </div>
-</section>
-
-<!-- Section C: Completion -->
-<section id="completion" class="hidden">
-    <div class="container">
-        <h2>Thank you for your valuable feedback!</h2>
-        <p>Your session code is: <span id="sessionCode"></span></p>
-        <p>Please copy this code for future reference.</p>
+    <div id="section3" style="display: none;">
+        <h1>Thank you for your valuable feedback!</h1>
     </div>
-</section>
-
-<script src="main.js"></script>
+    <div id="sessionCode"></div>
 </body>
+<script src="script.js"></script>
 </html>
