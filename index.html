@@ -86,31 +86,29 @@
             </div>
            
   <script>
-      window.onbeforeunload = function() {
+        window.onbeforeunload = function() {
             // Close any tabs or perform additional actions as needed
             // This event will be triggered when the user goes back or closes the tab
         };
-      function copySessionCode() {
-        var sessionCode = document.getElementById("sessionCode").innerText;
-        var textarea = document.createElement("textarea");
-        textarea.value = sessionCode;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-        
-        // Inform the user that the session ID is copied
-        alert("Session ID copied to clipboard! You can now close this tab by clicking the button below.");
 
-        // Display a button for the user to click to close the tab
-        var closeTabButton = document.createElement("button");
-        closeTabButton.innerHTML = "Close Tab";
-        closeTabButton.onclick = function() {
-            // Close the tab when the button is clicked
+        function copySessionCode() {
+            var sessionCode = document.getElementById("sessionCode").innerText;
+            var textarea = document.createElement("textarea");
+            textarea.value = sessionCode;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            
+            // Inform the user that the session ID is copied
+            alert("Session ID copied to clipboard! You can now close this tab by clicking the link below.");
+        }
+
+        function closeTab() {
+            // Close the tab
             window.close();
-        };
-        document.body.appendChild(closeTabButton);
-    }     
+        }
+         
       // Section 1 Timer
     setTimeout(function() {
       document.getElementById("section1SubmitBtn").style.display = "block";
