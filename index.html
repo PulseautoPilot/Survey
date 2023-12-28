@@ -1,26 +1,125 @@
-<!DOCTYPE html>
 <html>
 <head>
     <title>Company Review</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            margin-top: 50px;
+        }
+        
+        .section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .section h1 {
+            color: #007bff;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .section p {
+            color: #343a40;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .section a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        
+        .section a:hover {
+            text-decoration: underline;
+        }
+        
+        .section button {
+            display: none;
+        }
+        
+        .section-c p {
+            font-size: 16px;
+        }
+        
+        .section-c span {
+            font-weight: 500;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
-    <div id="section1">
-        <h1>Welcome to the Company Review section!</h1>
-        <p>Please take a few minutes to share your thoughts about our company.</p>
-        <a href="http://ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown">Company Review Link</a>
-        <button id="submit1" style="display: none;">Submit</button>
+    <div class="container">
+        <div class="section section-a">
+            <h1>Welcome to the Company Review section!</h1>
+            <p>Please take a few minutes to share your thoughts about our company.</p>
+            <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">Company Review Link</a>
+            <button id="submit-a" class="btn btn-primary">Submit</button>
+        </div>
+        
+        <div class="section section-b" style="display: none;">
+            <h1>Thank you for completing the Company Review!</h1>
+            <p>Have you liked and shared our page on social media?</p>
+            <a href="#" target="_blank">Like on social media</a>
+            <a href="#" target="_blank">Share on social media</a>
+            <button id="submit-b" class="btn btn-primary">Submit</button>
+        </div>
+        
+        <div class="section section-c" style="display: none;">
+            <h1>Thank you for your valuable feedback!</h1>
+            <p>Please copy the session code: <span id="session-code"></span></p>
+        </div>
     </div>
-    <div id="section2" style="display: none;">
-        <h1>Thank you for completing the Company Review!</h1>
-        <p>Have you liked and shared our page on social media?</p>
-        <!-- Add social sharing links here -->
-        <button id="submit2" style="display: none;">Submit</button>
-    </div>
-    <div id="section3" style="display: none;">
-        <h1>Thank you for your valuable feedback!</h1>
-    </div>
-    <div id="sessionCode"></div>
+    
+    <script>
+        // Generate unique alpha numeric code
+        function generateCode() {
+            var code = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < 8; i++) {
+                code += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return code;
+        }
+        
+        // Timer function for reflecting submit button in section B
+        function startTimer() {
+            setTimeout(function() {
+                document.getElementById('submit-b').style.display = 'block';
+            }, 6000); // 1 minute timer
+        }
+        
+        // Show section B and start timer when submit button in section A is clicked
+        document.getElementById('submit-a').addEventListener('click', function() {
+            document.getElementById('section-a').style.display = 'none';
+            document.getElementById('section-b').style.display = 'block';
+            startTimer();
+        });
+        
+        // Timer function for reflecting submit button in section C
+        function startTimerC() {
+            setTimeout(function() {
+                document.getElementById('submit-c').style.display = 'block';
+            }, 6000); // 1 minute timer
+        }
+        
+        // Show section C and generate session code when submit button in section B is clicked
+        document.getElementById('submit-b').addEventListener('click', function() {
+            document.getElementById('section-b').style.display = 'none';
+            document.getElementById('section-c').style.display = 'block';
+            var sessionCode = generateCode();
+            document.getElementById('session-code').innerText = sessionCode;
+            startTimerC();
+        });
+    </script>
 </body>
-<script src="script.js"></script>
 </html>
