@@ -1,125 +1,122 @@
 <html>
 <head>
-    <title>Company Review</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        
-        .container {
-            margin-top: 50px;
-        }
-        
-        .section {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        
-        .section h1 {
-            color: #007bff;
-            font-size: 24px;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-        
-        .section p {
-            color: #343a40;
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-        
-        .section a {
-            color: #007bff;
-            text-decoration: none;
-            font-size: 18px;
-            margin-right: 10px;
-        }
-        
-        .section a:hover {
-            text-decoration: underline;
-        }
-        
-        .section button {
-            display: none;
-        }
-        
-        .section-c p {
-            font-size: 16px;
-        }
-        
-        .section-c span {
-            font-weight: 500;
-            color: #007bff;
-        }
-    </style>
+  <title>Company Review</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #3498db; /* Change background color to a shade of blue */
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    h1, h2, h3 {
+      color: #ffffff; /* Change text color to white */
+    }
+
+    p {
+      color: #ffffff; /* Change text color to white */
+    }
+
+    .btn-primary {
+      background-color: #3498db; /* Change button color to the same shade of blue as background */
+      border-color: #3498db; /* Change button border color to blue */
+      color: #ffffff; /* Change button text color to white */
+      margin: 5px; /* Add margin to buttons */
+    }
+
+    .btn-primary:hover {
+      background-color: #e67e22; /* Change button hover color to orange */
+      border-color: #e67e22; /* Change button border hover color to orange */
+      color: #ffffff; /* Change button text hover color to white */
+    }
+
+    #section3 {
+      background-color: #e67e22; /* Change background color of section3 to Orange */
+      padding: 10px; /* Add padding to section3 */
+      border-radius: 5px; /* Add border radius to section3 */
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="section section-a">
-            <h1>Welcome to the Company Review section!</h1>
-            <p>Please take a few minutes to share your thoughts about our company.</p>
-            <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank">Company Review Link</a>
-            <button id="submit-a" class="btn btn-primary">Submit</button>
-        </div>
-        
-        <div class="section section-b" style="display: none;">
-            <h1>Thank you for completing the Company Review!</h1>
-            <p>Have you liked and shared our page on social media?</p>
-            <a href="#" target="_blank">Like on social media</a>
-            <a href="#" target="_blank">Share on social media</a>
-            <button id="submit-b" class="btn btn-primary">Submit</button>
-        </div>
-        
-        <div class="section section-c" style="display: none;">
-            <h1>Thank you for your valuable feedback!</h1>
-            <p>Please copy the session code: <span id="session-code"></span></p>
-        </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <section id="section1">
+          <h1>Welcome to the Company Review section!</h1>
+          <p>Please take a few minutes to share your thoughts about our company.</p>
+          <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank" class="btn btn-primary">Company Review Link</a>
+          <button id="section1SubmitBtn" class="btn btn-primary" style="display: none;">Submit</button>
+        </section>
+        <section id="section2" style="display: none;">
+          <h2>Thank you for completing the Company Review!</h2>
+          <p>Have you liked and shared our page on social media?</p>
+          <div class="social-links">
+            <a href="#" target="https://in.linkedin.com/company/scymes">Linked In</a>
+            <a href="#" target="https://m.facebook.com/p/Scymes-Services-Pvt-Ltd-100088882158313/">Facebook</a>
+          </div>
+          <button id="section2SubmitBtn" class="btn btn-primary" style="display: none;">Submit</button>
+        </section>
+        <section id="section3" style="display: none;">
+          <h3>Thank you for your valuable feedback!</h3>
+          <p>Please copy the session code: <span id="sessionCode"></span></p>
+          <button class="btn btn-primary" onclick="copySessionCode()">Copy Session ID</button>
+        </section>
+      </div>
     </div>
+  </div>
+
+
+  <script>
+    // Section 1 Timer
+    setTimeout(function() {
+      document.getElementById("section1SubmitBtn").style.display = "block";
+    }, 60000);
+
+    // Section 1 Submit Button
+    document.getElementById("section1SubmitBtn").addEventListener("click", function() {
+      document.getElementById("section1").style.display = "none";
+      document.getElementById("section2").style.display = "block";
+      setTimeout(function() {
+        document.getElementById("section2SubmitBtn").style.display = "block";
+      }, 60000);
+    });
+
+    // Section 2 Submit Button
+    document.getElementById("section2SubmitBtn").addEventListener("click", function() {
+      document.getElementById("section2").style.display = "none";
+      document.getElementById("section3").style.display = "block";
+      generateSessionCode();
+    });
+
+    // Generate Session Code
+    function generateSessionCode() {
+      var sessionCode = generateRandomCode();
+      document.getElementById("sessionCode").innerHTML = sessionCode;
+    }
+
+    // Generate Random Code
+    function generateRandomCode() {
+      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var codeLength = 10;
+      var code = "";
+      for (var i = 0; i < codeLength; i++) {
+        code += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return code;
+    }
     
-    <script>
-        // Generate unique alpha numeric code
-        function generateCode() {
-            var code = '';
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var charactersLength = characters.length;
-            for (var i = 0; i < 8; i++) {
-                code += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            return code;
-        }
-        
-        // Timer function for reflecting submit button in section B
-        function startTimer() {
-            setTimeout(function() {
-                document.getElementById('submit-b').style.display = 'block';
-            }, 6000); // 1 minute timer
-        }
-        
-        // Show section B and start timer when submit button in section A is clicked
-        document.getElementById('submit-a').addEventListener('click', function() {
-            document.getElementById('section-a').style.display = 'none';
-            document.getElementById('section-b').style.display = 'block';
-            startTimer();
-        });
-        
-        // Timer function for reflecting submit button in section C
-        function startTimerC() {
-            setTimeout(function() {
-                document.getElementById('submit-c').style.display = 'block';
-            }, 6000); // 1 minute timer
-        }
-        
-        // Show section C and generate session code when submit button in section B is clicked
-        document.getElementById('submit-b').addEventListener('click', function() {
-            document.getElementById('section-b').style.display = 'none';
-            document.getElementById('section-c').style.display = 'block';
-            var sessionCode = generateCode();
-            document.getElementById('session-code').innerText = sessionCode;
-            startTimerC();
-        });
-    </script>
+      function copySessionCode() {
+      var sessionCode = document.getElementById("sessionCode").innerText;
+      var textarea = document.createElement("textarea");
+      textarea.value = sessionCode;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      alert("Session ID copied to clipboard!");
+    }
+  </script>
 </body>
 </html>
