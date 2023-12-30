@@ -87,8 +87,11 @@
     function redirectToAmbitionBox() {
         // Redirecting to the provided Ambition Box URL
         window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
-        // Display Stage 2 after submission (you might want to handle this asynchronously)
-        document.getElementById('socialLinks').style.display = 'block';
+
+        // Display Stage 2 after submission with a delay
+        setTimeout(function () {
+            document.getElementById('socialLinks').style.display = 'block';
+        }, 2000); // Adjust the delay as needed (2000 milliseconds = 2 seconds)
     }
 
     // Timer function for Stage 2
