@@ -3,144 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Compilation & Redirect</title>
+    <title>Minimal UI</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background: #f0f0f0; /* Light gray background */
-            color: #333; /* Dark gray text color */
-            transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+            padding: 0;
+            background-color: #ecf0f1; /* Light Blue */
+            color: #333;
+            transition: background-color 0.5s;
         }
 
-        .stage {
-            display: none;
+        #content {
+            display: flex;
             flex-direction: column;
             align-items: center;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
-            transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+            justify-content: center;
+            height: 100vh;
+            background-color: #bdc3c7; /* Light Gray */
+            transition: background-color 0.5s;
         }
 
-        #landingPage {
-            background: #007bff; /* Blue background for Stage 1 */
-            color: #fff; /* White text color */
-        }
-
-        #socialLinks {
-            background: #ff8833; /* Orange background for Stage 2 */
-            color: #fff; /* White text color */
-        }
-
-        #googleFormsLink {
-            background: #007bff; /* Blue background for Stage 3 */
-            color: #fff; /* White text color */
-        }
-
-        h1, #confirmationMessage {
-            color: inherit; /* Inherit text color from the body */
-            margin-bottom: 20px;
-        }
-
-        button {
-            padding: 15px 30px;
+        #start-button {
+            padding: 12px 24px;
             font-size: 18px;
-            background: #fff; /* White button color */
+            background-color: #e67e22; /* Subtle Orange */
+            color: #fff;
             border: none;
-            border-radius: 5px;
-            margin-top: 20px;
             cursor: pointer;
-            color: #007bff; /* Blue text color */
-            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
-        #googleFormsInput {
-            margin-top: 20px;
-            width: 300px;
-            padding: 10px;
-            border: 1px solid #007bff; /* Blue border color */
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border-color 0.3s ease-in-out;
+        #start-button:hover {
+            background-color: #d35400; /* Darker Orange */
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
-<!-- Stage 1: Ambition Box -->
-<div id="landingPage" class="stage">
-    <h1>Welcome to Task Compilation & Redirect</h1>
-    <button onclick="redirectToAmbitionBox()">Start</button>
-</div>
-
-<!-- Stage 2: LinkedIn & Facebook Links -->
-<div id="socialLinks" class="stage">
-    <p>Connect with us on LinkedIn and Facebook:</p>
-    <a href="#" onclick="startTimerAndShowConfirmation('LinkedIn', 'https://in.linkedin.com/company/scymes')">Connect on LinkedIn</a>
-    <br>
-    <a href="#" onclick="startTimerAndShowConfirmation('Facebook', 'https://m.facebook.com/p/Scymes-Services-Pvt-Ltd-100088882158313')">Connect on Facebook</a>
-</div>
-
-<!-- Stage 3: Google Forms Link -->
-<div id="googleFormsLink" class="stage">
-    <p id="confirmationMessage"></p>
-    <p>Thanks for connecting! Please fill out the form:</p>
-    <input id="googleFormsInput" type="text" class="whsOnd zHQkBf" jsname="YPqjbf" autocomplete="off" tabindex="0" aria-labelledby="i5" aria-describedby="i6 i7" aria-disabled="false" required="" dir="auto" data-initial-dir="auto" data-initial-value="">
+<div id="content">
+    <h1>Welcome to Minimal UI</h1>
+    <button id="start-button" onclick="startAction()">Get Started</button>
 </div>
 
 <script>
-    // Unique Session ID generation function
-    function generateSessionID() {
-        return Date.now().toString(36) + Math.random().toString(36).substr(2);
-    }
+    function startAction() {
+        // Update background color for a subtle transition
+        document.body.style.backgroundColor = "#3498db"; /* Blue */
+        document.getElementById("content").style.backgroundColor = "#95a5a6"; /* Darker Gray */
 
-    // Function to show a specific stage and hide others
-    function showStage(stageId) {
-        var stages = document.querySelectorAll('.stage');
-        stages.forEach(function (stage) {
-            stage.style.display = 'none';
-        });
-
-        var currentStage = document.getElementById(stageId);
-        currentStage.style.display = 'flex';
-    }
-
-    // Redirect to Ambition Box
-    function redirectToAmbitionBox() {
-        // Redirecting to the provided Ambition Box URL
-        window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
-
-        // Display Stage 2 after submission with a delay
-        setTimeout(function () {
-            showStage('socialLinks');
-            // Manipulate browser history to prevent going back to Stage 2
-            history.pushState(null, null, window.location.href);
-        }, 2000); // Adjust the delay as needed (2000 milliseconds = 2 seconds)
-    }
-
-    // Timer function for Stage 2
-    function startTimerAndShowConfirmation(platform, profileURL) {
-        setTimeout(function () {
-            // Display Stage 3 after the timer expires
-            showStage('googleFormsLink');
-            // Display confirmation message
-            document.getElementById('confirmationMessage').innerText = `Connected on ${platform}!`;
-
-            // Generate a unique session ID and paste it into the input field
-            var sessionID = generateSessionID();
-            document.getElementById('googleFormsInput').value = sessionID;
-
-            // Manipulate browser history to prevent going back to Stage 2
-            history.pushState(null, null, window.location.href);
-        }, 60000); // 1 minute timer (adjust as needed)
-
-        // Open the provided social media profile URL in the same window
-        window.location.href = profileURL;
+        // You can add more actions or transitions here
     }
 </script>
 
