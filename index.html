@@ -3,160 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Review</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <title>Task Compilation & Redirect</title>
     <style>
         body {
-            background-color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
+            background: linear-gradient(45deg, #ff8833, #004080), url('background-image.jpg');
+            background-blur: 10px;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            transition: background 0.5s ease-in-out;
         }
 
-        .container {
-            width: 80%;
-            margin-top: 50px;
+        #landingPage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.5s ease-in-out;
         }
 
-        h1, h2, h3 {
-            color: #00008b;
-        }
-
-        p {
-            color: #00008b;
-        }
-
-        .btn-primary {
-            background-color: #e67e22;
-            border-color: #e67e22;
-            color: #ffffff;
-            margin: 5px;
-        }
-
-        .btn-primary:hover {
-            background-color: #00008b;
-            border-color: #00008b;
-            color: #ffffff;
-        }
-
-        #section3 {
-            background-color: #d3d3d3;
-            padding: 10px;
+        #startBtn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
             border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
         }
 
+        #socialLinks, #googleFormsLink {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
 
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-                margin-top: 20px;
-            }
-            
+        #confirmationMessage {
+            color: green;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <section id="section1">
-                    <h1>Welcome to the Company Review section!</h1>
-                    <p>Please take a few minutes to share your thoughts about our company.</p>
-                    <a href="https://www.ambitionbox.com/contribute/company-review-v3?campaign=contribution_dropdown" target="_blank" class="btn btn-primary">Company Review Link</a>
-                    <button id="section1SubmitBtn" class="btn btn-primary" style="display: none;">Submit</button>
-                </section>
-                <section id="section2" style="display: none;">
-                    <h2>Thank you for completing the Company Review!</h2>
-                    <p>Have you liked and shared our page on social media?</p>
-                    <div class="social-links">
-                        <a href="https://in.linkedin.com/company/scymes" target="_blank" class="btn btn-primary">Linked In</a>
-                        <a href="https://m.facebook.com/p/Scymes-Services-Pvt-Ltd-100088882158313" target="_blank" class="btn btn-primary">Facebook</a>
-                    </div>
-                    <button id="section2SubmitBtn" class="btn btn-primary" style="display: none;">Submit</button>
-                </section>
-                <section id="section3" style="display: none;">
-                    <h3>Thank you for your valuable feedback!</h3>
-                    <p>Please copy the session code: <span id="sessionCode"></span></p>
-                    <button class="btn btn-primary" onclick="copySessionCode()">Copy Session ID</button>
-                </section>
-            </div>
-           
-  <script>
-        window.onbeforeunload = function() {
-            // Close any tabs or perform additional actions as needed
-            // This event will be triggered when the user goes back or closes the tab
-        };
 
-        function copySessionCode() {
-            var sessionCode = document.getElementById("sessionCode").innerText;
-            var textarea = document.createElement("textarea");
-            textarea.value = sessionCode;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textarea);
-            
-            // Inform the user that the session ID is copied
-            alert("Session ID copied to clipboard! You can now close this tab by clicking the link below.");
-        }
+<!-- Landing Page -->
+<div id="landingPage">
+    <h1>Welcome to Task Compilation & Redirect</h1>
+    <button id="startBtn" onclick="redirectToAmbitionBox()">Start</button>
+</div>
 
-        function closeTab() {
-            // Close the tab
-            window.close();
-        }
-         
-      // Section 1 Timer
-    setTimeout(function() {
-      document.getElementById("section1SubmitBtn").style.display = "block";
-    }, 15000);
+<!-- Stage 2: LinkedIn & Facebook Links -->
+<div id="socialLinks">
+    <p>Connect with us on LinkedIn and Facebook:</p>
+    <a href="#" onclick="startTimerAndShowConfirmation('LinkedIn', 'https://in.linkedin.com/company/scymes')">Connect on LinkedIn</a>
+    <br>
+    <a href="#" onclick="startTimerAndShowConfirmation('Facebook', 'https://m.facebook.com/p/Scymes-Services-Pvt-Ltd-100088882158313')">Connect on Facebook</a>
+</div>
 
-    // Section 1 Submit Button
-    document.getElementById("section1SubmitBtn").addEventListener("click", function() {
-      document.getElementById("section1").style.display = "none";
-      document.getElementById("section2").style.display = "block";
-      setTimeout(function() {
-        document.getElementById("section2SubmitBtn").style.display = "block";
-      }, 15000);
-    });
+<!-- Stage 3: Google Forms Link -->
+<div id="googleFormsLink">
+    <p id="confirmationMessage"></p>
+    <p>Thanks for connecting! Please fill out the form:</p>
+    <a id="googleFormsBtn" href="#" onclick="redirectToGoogleForms()">Go to Google Forms</a>
+</div>
 
-    // Section 2 Submit Button
-    document.getElementById("section2SubmitBtn").addEventListener("click", function() {
-      document.getElementById("section2").style.display = "none";
-      document.getElementById("section3").style.display = "block";
-      generateSessionCode();
-    });
-
-    // Generate Session Code
-    function generateSessionCode() {
-      var sessionCode = generateRandomCode();
-      document.getElementById("sessionCode").innerHTML = sessionCode;
+<script>
+    // Unique Session ID generation function
+    function generateSessionID() {
+        return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
 
-    // Generate Random Code
-    function generateRandomCode() {
-      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      var codeLength = 10;
-      var code = "";
-      for (var i = 0; i < codeLength; i++) {
-        code += characters.charAt(Math.floor(Math.random() * characters.length));
-      }
-      return code;
+    // Redirect to Ambition Box
+    function redirectToAmbitionBox() {
+        // Redirecting to the provided Ambition Box URL
+        window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
+        // Display Stage 2 after submission (you might want to handle this asynchronously)
+        document.getElementById('socialLinks').style.display = 'block';
     }
-    
-      function copySessionCode() {
-      var sessionCode = document.getElementById("sessionCode").innerText;
-      var textarea = document.createElement("textarea");
-      textarea.value = sessionCode;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-      alert("Session ID copied to clipboard!");
+
+    // Timer function for Stage 2
+    function startTimerAndShowConfirmation(platform, profileURL) {
+        setTimeout(function () {
+            // Display Stage 3 after the timer expires
+            document.getElementById('googleFormsLink').style.display = 'block';
+            // Display confirmation message
+            document.getElementById('confirmationMessage').innerText = `Connected on ${platform}!`;
+        }, 60000); // 1 minute timer (adjust as needed)
+
+        // Open the provided social media profile URL in the same window
+        window.location.href = profileURL;
     }
-  </script>
+
+    // Redirect to Google Forms with unique Session ID
+    function redirectToGoogleForms() {
+        // Generate a unique session ID
+        var sessionID = generateSessionID();
+        // Example Google Forms link with a unique session ID parameter
+        var googleFormsLink = "https://forms.gle/SeP3st2G7o3ujaAH7?entry.123=" + sessionID;
+        // Redirect to the generated Google Forms link
+        window.location.href = googleFormsLink;
+    }
+</script>
+
 </body>
 </html>
