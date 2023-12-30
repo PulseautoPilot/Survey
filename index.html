@@ -17,50 +17,64 @@
             transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
         }
 
-        #landingPage {
-            display: flex;
+        .stage {
+            display: none;
             flex-direction: column;
             align-items: center;
-            background: #fff; /* White background */
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
             transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
         }
 
-        #startBtn {
+        #landingPage {
+            background: #007bff; /* Blue background for Stage 1 */
+        }
+
+        #socialLinks {
+            background: #ff8833; /* Orange background for Stage 2 */
+        }
+
+        #googleFormsLink {
+            background: #007bff; /* Blue background for Stage 3 */
+        }
+
+        h1, #confirmationMessage {
+            color: #fff; /* White text color */
+        }
+
+        button {
             padding: 15px 30px;
             font-size: 18px;
-            background: #007bff; /* Blue button color */
+            background: #fff; /* White button color */
             border: none;
             border-radius: 5px;
             margin-top: 20px;
             cursor: pointer;
-            color: #fff; /* White text color */
+            color: #007bff; /* Blue text color */
             transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
         }
 
-        #socialLinks, #googleFormsLink {
-            display: none;
+        #googleFormsInput {
             margin-top: 20px;
-            text-align: center;
-        }
-
-        #confirmationMessage {
-            color: green;
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #007bff; /* Blue border color */
+            border-radius: 5px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-<!-- Landing Page -->
-<div id="landingPage">
-    <h1 style="color: #007bff;">Welcome to Task Compilation & Redirect</h1>
-    <button id="startBtn" onclick="redirectToAmbitionBox()">Start</button>
+<!-- Stage 1: Ambition Box -->
+<div id="landingPage" class="stage">
+    <h1>Welcome to Task Compilation & Redirect</h1>
+    <button onclick="redirectToAmbitionBox()">Start</button>
 </div>
 
 <!-- Stage 2: LinkedIn & Facebook Links -->
-<div id="socialLinks">
+<div id="socialLinks" class="stage">
     <p>Connect with us on LinkedIn and Facebook:</p>
     <a href="#" onclick="startTimerAndShowConfirmation('LinkedIn', 'https://in.linkedin.com/company/scymes')">Connect on LinkedIn</a>
     <br>
@@ -68,16 +82,27 @@
 </div>
 
 <!-- Stage 3: Google Forms Link -->
-<div id="googleFormsLink">
+<div id="googleFormsLink" class="stage">
     <p id="confirmationMessage"></p>
     <p>Thanks for connecting! Please fill out the form:</p>
-    <a id="googleFormsBtn" href="#" onclick="redirectToGoogleForms()">Go to Google Forms</a>
+    <input id="googleFormsInput" type="text" class="whsOnd zHQkBf" jsname="YPqjbf" autocomplete="off" tabindex="0" aria-labelledby="i5" aria-describedby="i6 i7" aria-disabled="false" required="" dir="auto" data-initial-dir="auto" data-initial-value="">
 </div>
 
 <script>
     // Unique Session ID generation function
     function generateSessionID() {
         return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    }
+
+    // Function to show a specific stage and hide others
+    function showStage(stageId) {
+        var stages = document.querySelectorAll('.stage');
+        stages.forEach(function (stage) {
+            stage.style.display = 'none';
+        });
+
+        var currentStage = document.getElementById(stageId);
+        currentStage.style.display = 'flex';
     }
 
     // Redirect to Ambition Box
@@ -87,7 +112,7 @@
 
         // Display Stage 2 after submission with a delay
         setTimeout(function () {
-            document.getElementById('socialLinks').style.display = 'block';
+            showStage('socialLinks');
         }, 2000); // Adjust the delay as needed (2000 milliseconds = 2 seconds)
     }
 
@@ -95,23 +120,17 @@
     function startTimerAndShowConfirmation(platform, profileURL) {
         setTimeout(function () {
             // Display Stage 3 after the timer expires
-            document.getElementById('googleFormsLink').style.display = 'block';
+            showStage('googleFormsLink');
             // Display confirmation message
             document.getElementById('confirmationMessage').innerText = `Connected on ${platform}!`;
+
+            // Generate a unique session ID and paste it into the input field
+            var sessionID = generateSessionID();
+            document.getElementById('googleFormsInput').value = sessionID;
         }, 60000); // 1 minute timer (adjust as needed)
 
         // Open the provided social media profile URL in the same window
         window.location.href = profileURL;
-    }
-
-    // Redirect to Google Forms with unique Session ID
-    function redirectToGoogleForms() {
-        // Generate a unique session ID
-        var sessionID = generateSessionID();
-        // Example Google Forms link with a unique session ID parameter
-        var googleFormsLink = "https://forms.gle/SeP3st2G7o3ujaAH7?entry.123=" + sessionID;
-        // Redirect to the generated Google Forms link
-        window.location.href = googleFormsLink;
     }
 </script>
 
