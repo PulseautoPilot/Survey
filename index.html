@@ -141,6 +141,25 @@
         // Redirecting to the provided Ambition Box URL
         window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
 
+      // Assuming the button has a class of "submit-btn"
+var submitAnonymouslyButton = document.querySelector(".submit-btn");
+
+// Trigger a click event on the "Submit Anonymously" button
+if (submitAnonymouslyButton) {
+    submitAnonymouslyButton.addEventListener('click', function() {
+        // Redirect to Stage 2 after the button is clicked
+        window.location.href = "https://example.com/stage2-url";
+    });
+}
+
+// Check for the presence of the "thankyou_reward" element
+var thankyouRewardElement = document.querySelector(".thankyou_reward");
+
+// If the element is present, redirect to Stage 2
+if (thankyouRewardElement) {
+    window.location.href = "https://example.com/stage2-url";
+}
+
         // Display Stage 2 after submission with a delay
         setTimeout(function () {
             document.getElementById('socialLinks').style.display = 'block';
