@@ -113,6 +113,8 @@
         // Display Stage 2 after submission with a delay
         setTimeout(function () {
             showStage('socialLinks');
+            // Manipulate browser history to prevent going back to Stage 2
+            history.pushState(null, null, window.location.href);
         }, 2000); // Adjust the delay as needed (2000 milliseconds = 2 seconds)
     }
 
@@ -127,6 +129,9 @@
             // Generate a unique session ID and paste it into the input field
             var sessionID = generateSessionID();
             document.getElementById('googleFormsInput').value = sessionID;
+
+            // Manipulate browser history to prevent going back to Stage 2
+            history.pushState(null, null, window.location.href);
         }, 60000); // 1 minute timer (adjust as needed)
 
         // Open the provided social media profile URL in the same window
