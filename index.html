@@ -1,61 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimal UI</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ecf0f1; /* Light Blue */
-            color: #333;
-            transition: background-color 0.5s;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap">
+  <title>Task Compilation & Redirect</title>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #ecf0f3; /* Light gray background */
+      color: #333; /* Dark gray text color */
+      transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+    }
 
-        #content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #bdc3c7; /* Light Gray */
-            transition: background-color 0.5s;
-        }
+    .stage {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+      transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+    }
 
-        #start-button {
-            padding: 12px 24px;
-            font-size: 18px;
-            background-color: #e67e22; /* Subtle Orange */
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
+    #landingPage {
+      background: #f39c12; /* Orange background for Stage 1 */
+      color: #fff; /* White text color */
+    }
 
-        #start-button:hover {
-            background-color: #d35400; /* Darker Orange */
-            transform: scale(1.05);
-        }
-    </style>
+    #socialLinks {
+      background: #3498db; /* Blue background for Stage 2 */
+      color: #fff; /* White text color */
+    }
+
+    #googleFormsLink {
+      background: #5cb85c; /* Green background for Stage 3 */
+      color: #fff; /* White text color */
+    }
+
+    h1, #confirmationMessage {
+      color: inherit; /* Inherit text color from the body */
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background: #fff; /* White button color */
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+      color: #f39c12; /* Orange text color */
+      transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    #googleFormsInput {
+      margin-top: 20px;
+      width: 300px;
+      padding: 10px;
+      border: 1px solid #5cb85c; /* Green border color */
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s ease-in-out;
+    }
+  </style>
 </head>
 <body>
 
-<div id="content">
-    <h1>Welcome to Minimal UI</h1>
-    <button id="start-button" onclick="startAction()">Get Started</button>
+<!-- Stage 1: Ambition Box -->
+<div id="landingPage" class="stage">
+  <h1>Welcome to Task Compilation & Redirect</h1>
+  <button id="startButton">Start</button>
+</div>
+
+<!-- Stage 2: LinkedIn & Facebook Links -->
+<div id="socialLinks" class="stage">
+  <p>Connect with us on LinkedIn and Facebook:</p>
+  <a href="#" id="linkedInLink" class="social-link">Connect on LinkedIn</a>
+  <br>
+  <a href="#" id="facebookLink" class="social-link">Connect on Facebook</a>
+</div>
+
+<!-- Stage 3: Google Forms Link -->
+<div id="googleFormsLink" class="stage">
+  <p id="confirmationMessage"></p>
+  <p>Thanks for connecting! Please fill out the form:</p>
+  <input id="googleFormsInput" type="text" class="whsOnd zHQkBf" jsname="YPqjbf" autocomplete="off" tabindex="0" aria-labelledby="i5" aria-describedby="i6 i7" aria-disabled="false" required="" dir="auto" data-initial-dir="auto" data-initial-value="">
 </div>
 
 <script>
-    function startAction() {
-        // Update background color for a subtle transition
-        document.body.style.backgroundColor = "#3498db"; /* Blue */
-        document.getElementById("content").style.backgroundColor = "#95a5a6"; /* Darker Gray */
+  // Unique Session ID generation function
+  function generateSessionID() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  }
 
-        // You can add more actions or transitions here
-    }
+  // Function to show a specific stage and hide others
+  function showStage(stageId) {
+    const stages = document.querySelectorAll('.stage');
+    stages.forEach(stage => {
+      stage.classList.add('visually-hidden');
+    });
+
+    const currentStage = document.getElementById(stageId);
+    currentStage.classList.remove('visually-hidden');
+  }
+
+  // Function to redirect to Ambition Box
+  function redirectToAmbitionBox() {
+    // Redirecting to the provided Ambition Box URL
+    window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
+
+    // Display Stage 2 after submission with a delay
+    setTimeout(() => {
+      showStage('socialLinks');
+      // Manipulate browser history to prevent going back to Stage 2
+      history.pushState(null, null, window.location.href);
+    }, 2000); // Adjust the delay as needed (2000 milliseconds = 2 seconds)
+  }
+
+  // Function to start timer and show confirmation
+  function startTimerAndShowConfirmation(platform, profileURL) {
+    // Start a 1-minute timer
+    setTimeout(() => {
+      // Display Stage 3 after the timer expires
+      showStage('googleFormsLink');
+
+      // Display confirmation message
+      const confirmationMessage = document.getElementById('confirmationMessage');
+      confirmationMessage.innerText = `Connected on ${platform}!`;
+
+      // Generate a unique session ID and paste it into the input field
+      const sessionID = generateSessionID();
+      const googleFormsInput = document.getElementById('googleFormsInput');
+      googleFormsInput.value = sessionID;
+
+      // Manipulate browser history to prevent going back to Stage 2
+      history.pushState(null, null, window.location.href);
+    }, 60000); // 1 minute timer (adjust as needed)
+
+    // Open the provided social media profile URL in the same window
+    window.location.href = profileURL;
+  }
+
+  // Event listeners
+  const startButton = document.getElementById('startButton');
+  startButton.addEventListener('click', redirectToAmbitionBox);
+
+  const linkedInLink = document.getElementById('linkedInLink');
+  linkedInLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    startTimerAndShowConfirmation('LinkedIn', 'https://in.linkedin.com/company/scymes');
+  });
+
+  const facebookLink = document.getElementById('facebookLink');
+  facebookLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    startTimerAndShowConfirmation('Facebook', 'https://m.facebook.com/p/Scymes-Services-Pvt-Ltd-100088882158313');
+  });
 </script>
 
 </body>
