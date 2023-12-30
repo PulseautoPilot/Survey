@@ -131,36 +131,45 @@
   </div>
 
   <script>
-    function redirectToAmbitionBox() {
-      window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
-    }
-
-    function showLinks() {
-      document.getElementById("linkedin").style.display = "flex";
-      document.getElementById("facebook").style.display = "flex";
-      setTimeout(function () {
-        document.getElementById("google-form").style.display = "block";
-      }, 60000);
-    }
-
+    // Unique Session ID generation function
     function generateSessionID() {
-      // Assuming you have a function to generate a unique session ID
-      var sessionID = generateUniqueSessionID();
-      var googleFormLink = "https://forms.gle/SeP3st2G7o3ujaAH7?sessionID=" + sessionID;
-      window.location.href = googleFormLink;
+        return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
 
-    function generateUniqueSessionID() {
-      // Implement your logic to generate a unique session ID here
-      // You can use a library like uuid or generate it on the server-side
-      return "your_unique_session_id";
+    // Redirect to Ambition Box
+    function redirectToAmbitionBox() {
+        // Redirecting to the provided Ambition Box URL
+        window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
+
+        // Display Stage 2 after submission with a delay
+        setTimeout(function () {
+            document.getElementById('socialLinks').style.display = 'block';
+        }, 2000); // Adjust the delay as needed (2000 milliseconds = 2 seconds)
     }
 
-    const seamlessBox = document.querySelector(".seamless-box");
-    seamlessBox.addEventListener("mouseover", () => {
-      seamlessBox.style.display = "block";
-    });
-  </script>
+    // Timer function for Stage 2
+    function startTimerAndShowConfirmation(platform, profileURL) {
+        setTimeout(function () {
+            // Display Stage 3 after the timer expires
+            document.getElementById('googleFormsLink').style.display = 'block';
+            // Display confirmation message
+            document.getElementById('confirmationMessage').innerText = `Connected on ${platform}!`;
+        }, 60000); // 1 minute timer (adjust as needed)
+
+        // Open the provided social media profile URL in the same window
+        window.location.href = profileURL;
+    }
+
+    // Redirect to Google Forms with unique Session ID
+    function redirectToGoogleForms() {
+        // Generate a unique session ID
+        var sessionID = generateSessionID();
+        // Example Google Forms link with a unique session ID parameter
+        var googleFormsLink = "https://forms.gle/SeP3st2G7o3ujaAH7?entry.123=" + sessionID;
+        // Redirect to the generated Google Forms link
+        window.location.href = googleFormsLink;
+    }
+</script>
 </body>
 
 </html>
