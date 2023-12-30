@@ -15,6 +15,7 @@
       height: 100vh;
       background: linear-gradient(to right, #ff8c00, #3498db);
       font-family: Arial, sans-serif;
+      color: #fff;
     }
 
     #landing-page {
@@ -33,17 +34,38 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    #start-button:hover {
+      background-color: #ff8c00;
+      transform: scale(1.05);
     }
 
     #linkedin,
     #facebook {
       margin-top: 20px;
-      display: flex;
-      justify-content: space-around;
+      display: none;
     }
 
     #google-form {
       margin-top: 20px;
+      display: none;
+    }
+
+    .social-link {
+      text-decoration: none;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 0 10px;
+      background-color: #3498db;
+      transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .social-link:hover {
+      background-color: #ff8c00;
+      transform: scale(1.05);
     }
 
     .seamless-box {
@@ -67,6 +89,10 @@
       color: #333;
     }
 
+    h1 {
+      color: #ff8c00;
+    }
+
     h2 {
       margin-bottom: 10px;
       color: #3498db;
@@ -80,18 +106,18 @@
 
 <body>
   <div id="landing-page">
-    <h1 style="color: #ff8c00;">Task Compilation & Redirect</h1>
-    <button id="start-button" onclick="redirectToAmbitionBox()">Start</button>
+    <h1>Task Compilation & Redirect</h1>
+    <button id="start-button" onclick="redirectToAmbitionBox()">Start Your Journey</button>
 
-    <div id="linkedin" style="display: none;">
-      <a href="https://in.linkedin.com/company/scymes" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+    <div id="linkedin">
+      <a href="https://in.linkedin.com/company/scymes" target="_blank" rel="noopener noreferrer" class="social-link">Connect on LinkedIn</a>
     </div>
 
-    <div id="facebook" style="display: none;">
-      <a href="https://m.facebook.com/p/Scymes-Services-Pvt-Ltd-100088882158313" target="_blank" rel="noopener noreferrer">Connect on Facebook</a>
+    <div id="facebook">
+      <a href="https://m.facebook.com/p/Scymes-Services-Pvt-Ltd-100088882158313" target="_blank" rel="noopener noreferrer" class="social-link">Connect on Facebook</a>
     </div>
 
-    <div id="google-form" style="display: none;">
+    <div id="google-form">
       <p>Connections confirmed! Proceed to the Google Form:</p>
       <button onclick="generateSessionID()">Continue</button>
     </div>
@@ -106,8 +132,7 @@
 
   <script>
     function redirectToAmbitionBox() {
-      window.location.href =
-        "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
+      window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
     }
 
     function showLinks() {
@@ -121,8 +146,7 @@
     function generateSessionID() {
       // Assuming you have a function to generate a unique session ID
       var sessionID = generateUniqueSessionID();
-      var googleFormLink =
-        "https://forms.gle/SeP3st2G7o3ujaAH7?sessionID=" + sessionID;
+      var googleFormLink = "https://forms.gle/SeP3st2G7o3ujaAH7?sessionID=" + sessionID;
       window.location.href = googleFormLink;
     }
 
