@@ -1,194 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Task Compilation & Redirect</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
       padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #f0f0f0;
+    }
+    .landing-page {
+      background: linear-gradient(to bottom, #ffad33, #007bff, #8c8c8c);
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: linear-gradient(to right, #ff8c00, #3498db);
-      font-family: Arial, sans-serif;
-      color: #fff;
+      flex-direction: column;
+      color: white;
     }
-
-    #landing-page {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    #start-button {
+    .start-button {
+      background-color: #fff;
+      color: #007bff;
       padding: 10px 20px;
-      font-size: 16px;
-      background-color: #3498db;
-      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
       border: none;
       border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
     }
-
-    #start-button:hover {
-      background-color: #ff8c00;
-      transform: scale(1.05);
-    }
-
-    #linkedin,
-    #facebook {
-      margin-top: 20px;
+    .loader {
       display: none;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid #ffffff;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
     }
-
-    #google-form {
-      margin-top: 20px;
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .thankyou-reward {
       display: none;
+      text-align: center;
+      margin-top: 20px;
     }
-
+    .social-links {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
     .social-link {
+      margin: 0 10px;
       text-decoration: none;
       color: #fff;
+      font-size: 16px;
+    }
+    .google-form-link {
+      margin-top: 20px;
+      width: 80%;
       padding: 10px;
-      border-radius: 5px;
-      margin: 0 10px;
-      background-color: #3498db;
-      transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-    }
-
-    .social-link:hover {
-      background-color: #ff8c00;
-      transform: scale(1.05);
-    }
-
-    .seamless-box {
-      background-color: #ffffff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-      cursor: pointer;
-      display: none;
-    }
-
-    .seamless-box:hover {
-      background-color: #ecf0f1;
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .content {
-      text-align: center;
-      color: #333;
-    }
-
-    h1 {
-      color: #ff8c00;
-    }
-
-    h2 {
-      margin-bottom: 10px;
-      color: #3498db;
-    }
-
-    p {
-      margin: 0;
+      font-size: 16px;
     }
   </style>
+  <script>
+    function startTask() {
+      showLoader();
+      // Simulate async operation
+      setTimeout(function() {
+        redirectToAmbitionBox();
+      }, 2000);
+    }
+
+    function redirectToAmbitionBox() {
+      window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
+      showLoader();
+      // Simulate async operation
+      setTimeout(function() {
+        showThankYouReward();
+      }, 2000);
+    }
+
+    function showThankYouReward() {
+      hideLoader();
+      document.querySelector('.thankyou-reward').style.display = 'block';
+      // Simulate async operation
+      setTimeout(function() {
+        showSocialLinks();
+      }, 60000); // 1 minute timer
+    }
+
+    function showSocialLinks() {
+      document.querySelector('.social-links').style.display = 'block';
+      // Generate unique session ID (you may want to use a more secure method)
+      var sessionID = generateSessionID();
+      // Prefill Google Form link with the session ID
+      var googleFormLink = "https://forms.gle/SeP3st2G7o3ujaAH7?sessionID=" + sessionID;
+      document.querySelector('.google-form-link').value = googleFormLink;
+    }
+
+    function generateSessionID() {
+      // Implement your logic to generate a unique session ID here
+      return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    }
+
+    function showLoader() {
+      document.querySelector('.loader').style.display = 'block';
+    }
+
+    function hideLoader() {
+      document.querySelector('.loader').style.display = 'none';
+    }
+  </script>
 </head>
-
 <body>
-  <div id="landing-page">
-    <h1>Task Compilation & Redirect</h1>
-    <button id="start-button" onclick="redirectToAmbitionBox()">Start Your Journey</button>
-
-    <div id="linkedin">
-      <a href="https://in.linkedin.com/company/scymes" target="_blank" rel="noopener noreferrer" class="social-link">Connect on LinkedIn</a>
+  <div class="landing-page">
+    <button class="start-button" onclick="startTask()">Start</button>
+    <div class="loader"></div>
+    <div class="thankyou-reward">
+      <img loading="lazy" alt="thankyou-gift-icon" src="https://static.ambitionbox.com/static/rewards/thanku-gift.svg" class="mb-35 gift-icon">
     </div>
-
-    <div id="facebook">
-      <a href="https://m.facebook.com/p/Scymes-Services-Pvt-Ltd-100088882158313" target="_blank" rel="noopener noreferrer" class="social-link">Connect on Facebook</a>
-    </div>
-
-    <div id="google-form">
-      <p>Connections confirmed! Proceed to the Google Form:</p>
-      <button onclick="generateSessionID()">Continue</button>
-    </div>
-
-    <div class="seamless-box">
-      <div class="content">
-        <h2>Polished Seamless UI</h2>
-        <p>Hover over the box for a refined and seamless experience!</p>
-      </div>
+    <div class="social-links">
+      <p>Connect with us on social media:</p>
+      <a class="social-link" href="https://in.linkedin.com/company/scymes" target="_blank">LinkedIn</a>
+      <a class="social-link" href="https://m.facebook.com/p/Scymes-Services-Pvt-Ltd-100088882158313" target="_blank">Facebook</a>
+      <br>
+      <p>Paste the generated session ID in the field below before submitting the Google Form:</p>
+      <input type="text" class="whsOnd zHQkBf google-form-link" jsname="YPqjbf" autocomplete="off" tabindex="0" aria-labelledby="i5" aria-describedby="i6 i7" aria-disabled="false" required="" dir="auto" data-initial-dir="auto" data-initial-value="">
     </div>
   </div>
-
-  <script>
-    // Unique Session ID generation function
-    function generateSessionID() {
-        return Date.now().toString(36) + Math.random().toString(36).substr(2);
-    }
-
-    // Redirect to Ambition Box
-    function redirectToAmbitionBox() {
-        // Redirecting to the provided Ambition Box URL
-        window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
-
-      // Assuming the button has a class of "submit-btn"
-var submitAnonymouslyButton = document.querySelector(".submit-btn");
-
-// Trigger a click event on the "Submit Anonymously" button
-if (submitAnonymouslyButton) {
-    submitAnonymouslyButton.addEventListener('click', function() {
-        // Redirect to Stage 2 after the button is clicked
-        window.location.href = "https://example.com/stage2-url";
-    });
-}
-
-// Check for the presence of the "thankyou_reward" element
-var thankyouRewardElement = document.querySelector(".thankyou_reward");
-
-// If the element is present, redirect to Stage 2
-if (thankyouRewardElement) {
-    window.location.href = "https://example.com/stage2-url";
-}
-
-        // Display Stage 2 after submission with a delay
-        setTimeout(function () {
-            document.getElementById('socialLinks').style.display = 'block';
-        }, 2000); // Adjust the delay as needed (2000 milliseconds = 2 seconds)
-    }
-
-    // Timer function for Stage 2
-    function startTimerAndShowConfirmation(platform, profileURL) {
-        setTimeout(function () {
-            // Display Stage 3 after the timer expires
-            document.getElementById('googleFormsLink').style.display = 'block';
-            // Display confirmation message
-            document.getElementById('confirmationMessage').innerText = `Connected on ${platform}!`;
-        }, 60000); // 1 minute timer (adjust as needed)
-
-        // Open the provided social media profile URL in the same window
-        window.location.href = profileURL;
-    }
-
-    // Redirect to Google Forms with unique Session ID
-    function redirectToGoogleForms() {
-        // Generate a unique session ID
-        var sessionID = generateSessionID();
-        // Example Google Forms link with a unique session ID parameter
-        var googleFormsLink = "https://forms.gle/SeP3st2G7o3ujaAH7?entry.123=" + sessionID;
-        // Redirect to the generated Google Forms link
-        window.location.href = googleFormsLink;
-    }
-</script>
 </body>
-
 </html>
