@@ -74,31 +74,43 @@
     }
 
     function redirectToAmbitionBox() {
-      window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
-      showLoader();
-      // Simulate async operation
-      setTimeout(function() {
-        showThankYouReward();
-      }, 2000);
-    }
+  window.location.href = "https://www.ambitionbox.com/contribute/company-review-v3?campaign=company_info_header&company_name=Scymes%20Services%20";
+  showLoader();
 
-    function showThankYouReward() {
-      hideLoader();
-      document.querySelector('.thankyou-reward').style.display = 'block';
-      // Simulate async operation
-      setTimeout(function() {
-        showSocialLinks();
-      }, 60000); // 1 minute timer
-    }
+  // Simulate async operation
+  setTimeout(function() {
+    thankyouRewardElement();
+  }, 2000);
+}
 
-    function showSocialLinks() {
-      document.querySelector('.social-links').style.display = 'block';
-      // Generate unique session ID (you may want to use a more secure method)
-      var sessionID = generateSessionID();
-      // Prefill Google Form link with the session ID
-      var googleFormLink = "https://forms.gle/SeP3st2G7o3ujaAH7?sessionID=" + sessionID;
-      document.querySelector('.google-form-link').value = googleFormLink;
-    }
+function thankyouRewardElement() {
+  // Check for the presence of the "thankyou_reward" element
+  var thankyouRewardElement = document.querySelector(".thankyou_reward");
+
+  // If the element is present, redirect to Stage 2
+  if (thankyouRewardElement) {
+    // If the element is present, redirect to Stage 2
+    showSocialLinks();
+  }
+
+  setTimeout(function() {
+    showSocialLinks();
+  }, 2000); // 2 seconds timer
+}
+
+// Simulate async operation
+hideLoader();
+document.querySelector('.thankyou-reward').style.display = 'block';
+
+function showSocialLinks() {
+  document.querySelector('.social-links').style.display = 'block';
+  // Generate unique session ID (you may want to use a more secure method)
+  var sessionID = generateSessionID();
+  // Prefill Google Form link with the session ID
+  var googleFormLink = "https://forms.gle/SeP3st2G7o3ujaAH7?sessionID=" + sessionID;
+  document.querySelector('.google-form-link').value = googleFormLink;
+}
+
 
     function generateSessionID() {
       // Implement your logic to generate a unique session ID here
