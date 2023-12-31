@@ -83,24 +83,20 @@
   }, 2000);
 }
 
-function thankyouRewardElement() {
-  // Check for the presence of the "thankyou_reward" element
+// Check for the presence of the "thankyou_reward" element when the page loads
+document.addEventListener("DOMContentLoaded", function () {
   var thankyouRewardElement = document.querySelector(".thankyou_reward");
 
   // If the element is present, redirect to Stage 2
   if (thankyouRewardElement) {
-    // If the element is present, redirect to Stage 2
     showSocialLinks();
   }
 
-  setTimeout(function() {
+  // Simulate async operation after a delay
+  setTimeout(function () {
     showSocialLinks();
   }, 2000); // 2 seconds timer
-}
-
-// Simulate async operation
-hideLoader();
-document.querySelector('.thankyou-reward').style.display = 'block';
+});
 
 function showSocialLinks() {
   document.querySelector('.social-links').style.display = 'block';
